@@ -5,8 +5,31 @@
   text-align: center;
 }
 
-h1 {
+.app-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
   margin-bottom: 1.5rem;
+}
+
+.app-header h1 {
+  margin: 0;
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid #555;
+  border-radius: 8px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 0.4rem 0.6rem;
+  line-height: 1;
+  transition: border-color 0.25s;
+}
+
+.theme-toggle:hover {
+  border-color: #646cff;
 }
 
 .loading {
@@ -198,32 +221,38 @@ h1 {
   margin-left: 0.25rem;
 }
 
-@media (prefers-color-scheme: light) {
-  .search-bar input {
-    background: #fff;
-    border-color: #ccc;
-  }
+/* Light theme overrides */
+[data-theme="light"] .search-bar input {
+  background: #fff;
+  border-color: #ccc;
+}
 
-  .suggestions {
-    background: #fff;
-    border-color: #ccc;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
+[data-theme="light"] .suggestions {
+  background: #fff;
+  border-color: #ccc;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-  .suggestions li.active {
-    background: #646cff;
-    color: white;
-  }
+[data-theme="light"] .theme-toggle {
+  border-color: #ccc;
+}
 
-  .weather-card {
-    background: #f0f0f5;
-  }
+[data-theme="light"] .weather-card {
+  background: #f0f0f5;
+}
 
-  .weather-details {
-    background: rgba(0, 0, 0, 0.05);
-  }
+[data-theme="light"] .weather-details {
+  background: rgba(0, 0, 0, 0.05);
+}
 
-  .forecast-day {
-    background: rgba(0, 0, 0, 0.05);
-  }
+[data-theme="light"] .forecast-day {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .current-weather .description {
+  color: #666;
+}
+
+[data-theme="light"] .forecast-day .day-name {
+  color: #666;
 }

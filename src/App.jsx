@@ -1,12 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import SearchBar from './components/SearchBar'
 import WeatherCard from './components/WeatherCard'
+import ThemeToggle from './components/ThemeToggle'
 import './App.css'
+
+function getInitialTheme() {
+  const saved = localStorage.getItem('theme')
+  if (saved) return saved
+  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+}
 
 function App() {
   const [weather, setWeather] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [theme, setTheme] = useState(getInitialTheme)
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('theme', theme)
+  }, [theme])
+
+  function toggleTheme() {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))
+  }
 
   async function handleSearch(place) {
     setLoading(true)
@@ -47,7 +64,10 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Weather App</h1>
+      <div className="app-header">
+        <h1>Weather App</h1>
+        <ThemeToggle theme={theme} onToggle={toggleTheme} />
+      </div>
       <SearchBar onSearch={handleSearch} disabled={loading} />
       {loading && <p className="loading">Fetching weather data...</p>}
       {error && <p className="error">{error}</p>}
